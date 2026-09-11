@@ -1,0 +1,38 @@
+From ed59916d199597b6fa55d8950cedd1c663bb303f Mon Sep 17 00:00:00 2001
+From: wayneho219 <t114ep8013@ntut.org.tw>
+Date: Wed, 9 Sep 2026 15:59:27 +0800
+Subject: [PATCH] create led to dts
+
+---
+ arch/arm64/boot/dts/st/stm32mp215f-dk.dts | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/st/stm32mp215f-dk.dts b/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
+index 693cc7b8c..49bcdc4e0 100644
+--- a/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
++++ b/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
+@@ -113,6 +113,21 @@ led-blue {
+ 			linux,default-trigger = "heartbeat";
+ 			default-state = "off";
+ 		};
++
++		led-orange {
++			label = "orange:status";
++			function = LED_FUNCTION_STATUS;
++			color = <LED_COLOR_ID_ORANGE>;
++			gpios = <&gpioh 12 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-green {
++			function = LED_FUNCTION_STATUS;
++			color = <LED_COLOR_ID_GREEN>;
++			gpios = <&gpiof 10 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
+ 	};
+ 
+ 	memory@80000000 {
+-- 
+2.43.0
+
