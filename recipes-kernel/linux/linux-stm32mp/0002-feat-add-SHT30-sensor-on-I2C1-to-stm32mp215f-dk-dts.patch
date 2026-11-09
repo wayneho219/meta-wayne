@@ -1,0 +1,43 @@
+From a08a53ff22c384bae1edc31896722c058f769e20 Mon Sep 17 00:00:00 2001
+From: wayneho219 <t114ep8013@ntut.org.tw>
+Date: Mon, 9 Nov 2026 17:27:41 +0800
+Subject: [PATCH] feat: add SHT30 sensor on I2C1 to stm32mp215f-dk dts
+
+---
+ arch/arm64/boot/dts/st/stm32mp215f-dk.dts | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/st/stm32mp215f-dk.dts b/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
+index 49bcdc4e0..bf6fa1cbf 100644
+--- a/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
++++ b/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
+@@ -712,3 +712,26 @@ usb_c_device_port: endpoint {
+ 		};
+ 	};
+ };
++
++&pinctrl {
++	i2c1_pins_mylab: i2c1-mylab-0 {
++		pins {
++			pinmux = <STM32_PINMUX('G', 13, AF9)>, /* I2C1_SCL */
++				 <STM32_PINMUX('A', 2, AF10)>; /* I2C1_SDA */
++			bias-disable;
++			drive-open-drain;
++			slew-rate = <0>;
++		};
++	};
++};
++
++&i2c1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2c1_pins_mylab>;
++	status = "okay";
++
++	sht30@44 {
++		compatible = "mylab,sht30";
++		reg = <0x44>;
++	};
++};
+-- 
+2.43.0
+
